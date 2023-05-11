@@ -13,16 +13,16 @@ MACHINES = {
                 :dfile => './sata2.vdi',
                 :size => 250,
                 :port => 2
-            },
-            :sata3 => {
-                :dfile => './sata3.vdi',
-                :size => 250,
-                :port => 3
-            },
-            :sata4 => {
-                :dfile => './sata4.vdi',
-                :size => 250,
-                :port => 4
+            # },
+            # :sata3 => {
+            #     :dfile => './sata3.vdi',
+            #     :size => 250,
+            #     :port => 3
+            # },
+            # :sata4 => {
+            #     :dfile => './sata4.vdi',
+            #     :size => 250,
+            #     :port => 4
             }
 	    }
     }
@@ -56,3 +56,11 @@ Vagrant.configure("2") do |config|
         end
     end
 end
+
+# problem: "VERR_ALREADY_EXISTS"
+# solution: 
+# vboxmanage list hdds
+# vboxmanage closemedium <UUID> --delete
+
+# problem: "Stderr: VBoxManage: error: Too many storage controllers of this type"
+# solution: 
