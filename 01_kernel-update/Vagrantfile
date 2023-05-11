@@ -1,3 +1,4 @@
+1
 MACHINES = {
     :"kernel-update" => {
         :box_name => "generic/centos8",
