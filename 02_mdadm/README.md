@@ -7,4 +7,4 @@ solution:
 
 ### "Stderr: VBoxManage: error: Too many storage controllers of this type"
 solution: 
-* using `SAS` instead `SATA`
+* using `SAS` instead "SATA"
