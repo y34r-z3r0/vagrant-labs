@@ -8,3 +8,4 @@ Each directory with the number and name of the lesson contains:
 Vagrant commands:
 * vagrant up
 * vagrant ssh
+* vagrant destroy -f
