@@ -4,25 +4,25 @@ MACHINES = {
         :cpus => 1,
         :memory => 1024,
         :disks => {
-            :sata1 => {
-                :dfile => './sata1.vdi',
+            :sas1 => {
+                :dfile => './sas1.vdi',
                 :size => 250,
                 :port => 1
             },
-            :sata2 => {
-                :dfile => './sata2.vdi',
+            :sas2 => {
+                :dfile => './sas2.vdi',
                 :size => 250,
                 :port => 2
-            # },
-            # :sata3 => {
-            #     :dfile => './sata3.vdi',
-            #     :size => 250,
-            #     :port => 3
-            # },
-            # :sata4 => {
-            #     :dfile => './sata4.vdi',
-            #     :size => 250,
-            #     :port => 4
+            },
+            :sas3 => {
+                :dfile => './sas3.vdi',
+                :size => 250,
+                :port => 3
+            },
+            :sas4 => {
+                :dfile => './sas4.vdi',
+                :size => 250,
+                :port => 4
             }
 	    }
     }
@@ -44,9 +44,9 @@ Vagrant.configure("2") do |config|
                     end
                 end
                 if needsController == true
-                    vb.customize ["storagectl", :id, "--name", "SATA", "--add", "sata" ]
+                    vb.customize ["storagectl", :id, "--name", "SAS", "--add", "sas" ]
                     boxconfig[:disks].each do |dname, dconf|
-                       vb.customize ['storageattach', :id,  '--storagectl', 'SATA', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium', dconf[:dfile]]
+                       vb.customize ['storageattach', :id,  '--storagectl', 'SAS', '--port', dconf[:port], '--device', 0, '--type', 'hdd', '--medium', dconf[:dfile]]
                     end
                 end
             end
@@ -56,11 +56,3 @@ Vagrant.configure("2") do |config|
         end
     end
 end
-
-# problem: "VERR_ALREADY_EXISTS"
-# solution: 
-# vboxmanage list hdds
-# vboxmanage closemedium <UUID> --delete
-
-# problem: "Stderr: VBoxManage: error: Too many storage controllers of this type"
-# solution: 
