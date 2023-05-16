@@ -38,22 +38,22 @@ cat /proc/mdstat
 
 create raid-array 10 with 4 disks
 ```
-mdadm --create -l 10 -n 4 <name> /dev/sda1 /dev/sda2 /dev/sda3 /dev/sda4
+sudo mdadm --create -l 10 -n 4 <name> /dev/sda1 /dev/sda2 /dev/sda3 /dev/sda4
 ```
 
 raid-arrays info 2
 ```
-mdadm --detail /dev/<name>
+sudo mdadm --detail /dev/<name>
 ```
 
 create ext4 file system
 ```
-mkfs.ext4 /dev/<name>
+sudo mkfs.ext4 /dev/<name>
 ```
 
-mount disk with raid-array 
+sudo mount disk with raid-array 
 ```
-mount /dev/<name> /mnt/<name>
+sudo mount /dev/<name> /mnt/<name>
 ```
 
 check disk mount
@@ -63,7 +63,7 @@ df -hT
 
 filling disk with data
 ```
-cp -r /var/log/* /mnt/<name>
+sudo cp -r /var/log/* /mnt/<name>
 ```
 
 ## Break the raid-array
@@ -74,10 +74,10 @@ mdamd --manage /dev/<name> --fail /dev/sda2
 
 remove failed disk from array
 ```
-mdamd --manage /dev/<name> --remove /dev/sda2
+mdadm --manage /dev/<name> --remove /dev/sda2
 ```
 
 add new disk to array
 ```
-mdamd --manage /dev/<name> --add /dev/sda5
+mdadm --manage /dev/<name> --add /dev/sda5
 ```
