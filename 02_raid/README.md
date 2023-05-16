@@ -13,7 +13,21 @@ solution:
 
 ## Сreate a logical partition
 
-please stand by.. (use fdisk)
+list of disks
+```
+sudo lshw -short | grep disk
+```
+
+detailed information of disks
+```
+sudo fdisk -l
+```
+
+detailed information about chosen disk
+```
+sudo fdisk -l /dev/sda1
+```
+
 
 ## Create raid-array
 
