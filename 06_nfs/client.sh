@@ -17,7 +17,7 @@ sudo systemctl start nfs-utils.service
 
 # persist nfs share
 sudo chmod 777 /etc/fstab 
-sudo echo "192.168.56.10:/srv/upload/ /mnt nfs nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" >> /etc/fstab
+sudo echo "192.168.56.10:/srv/upload/ /mnt nfs auto,nofail,noatime,nolock,intr,tcp,actimeo=1800 0 0" >> /etc/fstab
 sudo chmod 644 /etc/fstab 
 
 # restart services
