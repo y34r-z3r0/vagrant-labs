@@ -1,4 +1,4 @@
-# main
+# mai
 
 Each directory with the number and name of the lesson contains:
 * Vagrantfile
