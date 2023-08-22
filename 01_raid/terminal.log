@@ -1,0 +1,198 @@
+pandora@box 02_raid % vagrant ssh
+Welcome to Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-67-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Tue May 16 02:12:31 PM UTC 2023
+
+  System load:  1.71728515625      Processes:             171
+  Usage of /:   12.0% of 30.34GB   Users logged in:       0
+  Memory usage: 21%                IPv4 address for eth0: 10.0.2.15
+  Swap usage:   0%
+
+
+This system is built by the Bento project by Chef Software
+More information can be found at https://github.com/chef/bento
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ cat /proc/mdstat
+Personalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10] 
+md127 : active raid10 sde[3] sdd[2] sdc[1] sdb[0]
+      507904 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU]
+      
+unused devices: <none>
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ sudo mdadm --detail /dev/md127
+/dev/md127:
+           Version : 1.2
+     Creation Time : Tue May 16 14:12:41 2023
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Tue May 16 14:13:17 2023
+             State : clean 
+    Active Devices : 4
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : raid:md127  (local to host raid)
+              UUID : 2b0e70a9:1295b783:c5e28343:5f9ac1b5
+            Events : 17
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       1       8       32        1      active sync set-B   /dev/sdc
+       2       8       48        2      active sync set-A   /dev/sdd
+       3       8       64        3      active sync set-B   /dev/sde
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ df -hT
+Filesystem                        Type    Size  Used Avail Use% Mounted on
+tmpfs                             tmpfs    97M  1.1M   96M   2% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv ext4     31G  3.7G   26G  13% /
+tmpfs                             tmpfs   485M     0  485M   0% /dev/shm
+tmpfs                             tmpfs   5.0M     0  5.0M   0% /run/lock
+/dev/sda2                         ext4    2.0G  131M  1.7G   8% /boot
+vagrant                           vboxsf  234G   45G  189G  20% /vagrant
+/dev/md127                        ext4    449M   33M  382M   8% /mnt/raid
+tmpfs                             tmpfs    97M  4.0K   97M   1% /run/user/1000
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ ls -l /mnt/raid/
+total 364
+-rw-r--r-- 1 root root      0 May 16 14:12 alternatives.log
+drwxr-xr-x 2 root root   4096 May 16 14:12 apt
+-rw-r----- 1 root root   8885 May 16 14:12 auth.log
+-rw-r--r-- 1 root root      0 May 16 14:12 bootstrap.log
+-rw-r----- 1 root root      0 May 16 14:12 btmp
+-rw-r----- 1 root root   2813 May 16 14:12 cloud-init-output.log
+-rw-r--r-- 1 root root  60686 May 16 14:12 cloud-init.log
+-rw-r----- 1 root root  55248 May 16 14:12 dmesg
+-rw-r----- 1 root root      0 May 16 14:12 dmesg.0
+-rw-r--r-- 1 root root      0 May 16 14:12 dpkg.log
+-rw-r--r-- 1 root root      0 May 16 14:12 faillog
+drwxr-x--- 4 root root   4096 May 16 14:12 installer
+drwxr-xr-x 4 root root   4096 May 16 14:12 journal
+-rw-r----- 1 root root  67832 May 16 14:12 kern.log
+drwxr-xr-x 2 root root   4096 May 16 14:12 landscape
+-rw-r--r-- 1 root root      0 May 16 14:12 lastlog
+drwx------ 2 root root  16384 May 16 14:12 lost+found
+drwx------ 2 root root   4096 May 16 14:12 private
+-rw-r----- 1 root root 122371 May 16 14:12 syslog
+-rw-r--r-- 1 root root      0 May 16 14:12 ubuntu-advantage.log
+-rw-r--r-- 1 root root     61 May 16 14:12 vboxadd-setup.log
+-rw-r--r-- 1 root root   1920 May 16 14:12 wtmp
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ sudo mdadm --manage /dev/md127 --fail /dev/sdc
+mdadm: set /dev/sdc faulty in /dev/md127
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ cat /proc/mdstat
+Personalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10] 
+md127 : active raid10 sde[3] sdd[2] sdc[1](F) sdb[0]
+      507904 blocks super 1.2 512K chunks 2 near-copies [4/3] [U_UU]
+      
+unused devices: <none>
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ sudo mdadm --detail /dev/md127
+/dev/md127:
+           Version : 1.2
+     Creation Time : Tue May 16 14:12:41 2023
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Tue May 16 14:20:06 2023
+             State : clean, degraded 
+    Active Devices : 3
+   Working Devices : 3
+    Failed Devices : 1
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : raid:md127  (local to host raid)
+              UUID : 2b0e70a9:1295b783:c5e28343:5f9ac1b5
+            Events : 19
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       -       0        0        1      removed
+       2       8       48        2      active sync set-A   /dev/sdd
+       3       8       64        3      active sync set-B   /dev/sde
+
+       1       8       32        -      faulty   /dev/sdc
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ sudo mdadm --manage /dev/md127 --remove /dev/sdc
+mdadm: hot removed /dev/sdc from /dev/md127
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ sudo mdadm --manage /dev/md127 --add /dev/sdf
+mdadm: added /dev/sdf
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ cat /proc/mdstat
+Personalities : [linear] [multipath] [raid0] [raid1] [raid6] [raid5] [raid4] [raid10] 
+md127 : active raid10 sdf[4] sde[3] sdd[2] sdb[0]
+      507904 blocks super 1.2 512K chunks 2 near-copies [4/4] [UUUU]
+      
+unused devices: <none>
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ sudo mdadm --detail /dev/md127
+/dev/md127:
+           Version : 1.2
+     Creation Time : Tue May 16 14:12:41 2023
+        Raid Level : raid10
+        Array Size : 507904 (496.00 MiB 520.09 MB)
+     Used Dev Size : 253952 (248.00 MiB 260.05 MB)
+      Raid Devices : 4
+     Total Devices : 4
+       Persistence : Superblock is persistent
+
+       Update Time : Tue May 16 14:22:42 2023
+             State : clean 
+    Active Devices : 4
+   Working Devices : 4
+    Failed Devices : 0
+     Spare Devices : 0
+
+            Layout : near=2
+        Chunk Size : 512K
+
+Consistency Policy : resync
+
+              Name : raid:md127  (local to host raid)
+              UUID : 2b0e70a9:1295b783:c5e28343:5f9ac1b5
+            Events : 39
+
+    Number   Major   Minor   RaidDevice State
+       0       8       16        0      active sync set-A   /dev/sdb
+       4       8       80        1      active sync set-B   /dev/sdf
+       2       8       48        2      active sync set-A   /dev/sdd
+       3       8       64        3      active sync set-B   /dev/sde
+vagrant@raid:~$ 
+vagrant@raid:~$ 
+vagrant@raid:~$ exit
