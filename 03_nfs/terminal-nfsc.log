@@ -1,0 +1,32 @@
+Welcome to Ubuntu 22.04.2 LTS (GNU/Linux 5.15.0-67-generic x86_64)
+
+ * Documentation:  https://help.ubuntu.com
+ * Management:     https://landscape.canonical.com
+ * Support:        https://ubuntu.com/advantage
+
+  System information as of Sun Aug 20 09:07:06 PM UTC 2023
+
+  System load:  0.224609375        Processes:             151
+  Usage of /:   12.3% of 30.34GB   Users logged in:       0
+  Memory usage: 26%                IPv4 address for eth0: 10.0.2.15
+  Swap usage:   0%                 IPv4 address for eth1: 192.168.50.11
+
+
+This system is built by the Bento project by Chef Software
+More information can be found at https://github.com/chef/bento
+vagrant@nfsc:~$ 
+vagrant@nfsc:~$ 
+vagrant@nfsc:~$ df -hT
+Filesystem                        Type   Size  Used Avail Use% Mounted on
+tmpfs                             tmpfs   97M  1.1M   96M   2% /run
+/dev/mapper/ubuntu--vg-ubuntu--lv ext4    31G  3.8G   26G  13% /
+tmpfs                             tmpfs  485M     0  485M   0% /dev/shm
+tmpfs                             tmpfs  5.0M     0  5.0M   0% /run/lock
+/dev/sda2                         ext4   2.0G  131M  1.7G   8% /boot
+192.168.50.10:/srv/upload         nfs4    31G  3.8G   26G  13% /mnt
+tmpfs                             tmpfs   97M  4.0K   97M   1% /run/user/1000
+vagrant@nfsc:~$ ls -l /mnt/
+total 0
+-rw-rw-r-- 1 vagrant vagrant 0 Aug 20 21:07 test.txt
+vagrant@nfsc:~$ 
+vagrant@nfsc:~$ 
