@@ -22,7 +22,7 @@ done
 # share settings
 sudo mkdir -p /srv/upload
 sudo chown nobody:nogroup /srv/upload
-sudo chmod 0777 /srv/upload
+sudo chmod 0775 /srv/upload
 
 # nfs server settings
 sudo chmod o+w /etc/exports

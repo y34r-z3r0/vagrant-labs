@@ -1,6 +1,7 @@
+zfs/
 project/
-01_kernel-update/docs
-02_raid/docs
-03-04_lvm/docs
-05_zfs/docs
-06_nfs_fuse/docs
+kernel-update/
+01_raid/docs
+02_lvm/docs
+03_nfs/docs
+04_glusterfs

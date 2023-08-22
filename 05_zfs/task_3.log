@@ -1,9 +1,0 @@
-vagrant@zfs ~]$ sudo zfs receive otus/test@today < otus_task2.file
-[vagrant@zfs ~]$ 
-[vagrant@zfs ~]$ 
-[vagrant@zfs ~]$ find /otus/test -name "secret_message"
-/otus/test/task1/file_mess/secret_message
-[vagrant@zfs ~]$ 
-[vagrant@zfs ~]$ 
-[vagrant@zfs ~]$ cat /otus/test/task1/file_mess/secret_message
-https://github.com/sindresorhus/awesome
