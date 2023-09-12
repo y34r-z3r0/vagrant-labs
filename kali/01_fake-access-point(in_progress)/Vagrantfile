@@ -1,0 +1,22 @@
+# Kali instance for Wi-Fi exploration
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "kalilinux/rolling"
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+  config.vm.synced_folder "./share", "/share", disabled: false
+  # config.vm.hostname = "kali.local"
+
+  config.vm.provider "virtualbox" do |v|
+    v.gui = false
+    v.cpus = "2"
+    v.memory = "4096"
+    v.name = "vg-kali"
+    v.check_guest_additions = false
+    v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    v.customize ["modifyvm", :id, "--usb", "on"]
+  end
+
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt update && sudo apt install realtek-rt188xxau-dkms berate-ap lua5.1 alsa-utils triggerhappy curl -y
+  SHELL
+end
