@@ -1,0 +1,671 @@
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ wget --no-check-certificate https://nginx.org/packages/centos/8/SRPMS/nginx-1.20.2-1.el8.ngx.src.rpm
+--2023-08-24 00:49:16--  https://nginx.org/packages/centos/8/SRPMS/nginx-1.20.2-1.el8.ngx.src.rpm
+Resolving nginx.org (nginx.org)... 52.58.199.22, 3.125.197.172, 2a05:d014:edb:5702::6, ...
+Connecting to nginx.org (nginx.org)|52.58.199.22|:443... connected.
+WARNING: cannot verify nginx.org's certificate, issued by '/C=US/O=Let\'s Encrypt/CN=R3':
+  Issued certificate not yet valid.
+HTTP request sent, awaiting response... 200 OK
+Length: 1086865 (1.0M) [application/x-redhat-package-manager]
+Saving to: 'nginx-1.20.2-1.el8.ngx.src.rpm.1'
+
+100%[=================================================================================================>] 1,086,865   1.96MB/s   in 0.5s   
+
+2023-08-24 00:49:16 (1.96 MB/s) - 'nginx-1.20.2-1.el8.ngx.src.rpm.1' saved [1086865/1086865]
+
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ rpm -i nginx-1.*
+warning: nginx-1.20.2-1.el8.ngx.src.rpm: Header V4 RSA/SHA1 Signature, key ID 7bd9bf62: NOKEY
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+warning: user builder does not exist - using root
+warning: group builder does not exist - using root
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ wget https://github.com/openssl/openssl/archive/refs/heads/OpenSSL_1_1_1-stable.zip
+--2023-08-24 00:52:12--  https://github.com/openssl/openssl/archive/refs/heads/OpenSSL_1_1_1-stable.zip
+Resolving github.com (github.com)... 140.82.121.4
+Connecting to github.com (github.com)|140.82.121.4|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://codeload.github.com/openssl/openssl/zip/refs/heads/OpenSSL_1_1_1-stable [following]
+--2023-08-24 00:52:12--  https://codeload.github.com/openssl/openssl/zip/refs/heads/OpenSSL_1_1_1-stable
+Resolving codeload.github.com (codeload.github.com)... 140.82.121.10
+Connecting to codeload.github.com (codeload.github.com)|140.82.121.10|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: unspecified [application/zip]
+Saving to: 'OpenSSL_1_1_1-stable.zip'
+
+    [                       <=>                                                                        ] 11,924,330  2.62MB/s   in 4.6s   
+
+2023-08-24 00:52:17 (2.48 MB/s) - 'OpenSSL_1_1_1-stable.zip' saved [11924330]
+
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ unzip OpenSSL_1_1_1-stable.zip 
+   creating: openssl-OpenSSL_1_1_1-stable/
+  inflating: openssl-OpenSSL_1_1_1-stable/ACKNOWLEDGEMENTS  
+  inflating: openssl-OpenSSL_1_1_1-stable/AUTHORS  
+  inflating: openssl-OpenSSL_1_1_1-stable/CHANGES  
+  inflating: openssl-OpenSSL_1_1_1-stable/CONTRIBUTING  
+  ...
+
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$
+-rw-rw-r--.  1 vagrant vagrant 11924330 Aug 24 00:52 OpenSSL_1_1_1-stable.zip
+-rw-rw-r--.  1 vagrant vagrant  1086865 Nov 16  2021 nginx-1.20.2-1.el8.ngx.src.rpm
+drwxrwxr-x. 19 vagrant vagrant     4096 Sep 11  2023 openssl-OpenSSL_1_1_1-stable
+drwxr-xr-x.  4 vagrant vagrant       34 Aug 24 00:50 rpmbuild
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum-builddep rpmbuild/SPECS/nginx.spec
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Enabling base-source repository
+Enabling extras-source repository
+Enabling updates-source repository
+Loading mirror speeds from cached hostfile
+ * base: mirror.netsite.dk
+ * extras: mirror.one.com
+ * updates: mirror.netsite.dk
+base-source                                                                                                         | 2.9 kB  00:00:00     
+extras-source                                                                                                       | 2.9 kB  00:00:00     
+updates-source                                                                                                      | 2.9 kB  00:00:00     
+(1/3): updates-source/7/primary_db                                                                                  | 332 kB  00:00:00     
+(2/3): extras-source/7/primary_db                                                                                   |  32 kB  00:00:01     
+(3/3): base-source/7/primary_db                                                                                     | 974 kB  00:00:01     
+Checking for new repos for mirrors
+Getting requirements for rpmbuild/SPECS/nginx.spec
+ --> Already installed : systemd-219-78.el7_9.7.x86_64
+ --> 1:openssl-devel-1.0.2k-26.el7_9.x86_64
+ --> zlib-devel-1.2.7-21.el7_9.x86_64
+ --> pcre-devel-8.32-17.el7.x86_64
+--> Running transaction check
+---> Package openssl-devel.x86_64 1:1.0.2k-26.el7_9 will be installed
+--> Processing Dependency: krb5-devel(x86-64) for package: 1:openssl-devel-1.0.2k-26.el7_9.x86_64
+---> Package pcre-devel.x86_64 0:8.32-17.el7 will be installed
+---> Package zlib-devel.x86_64 0:1.2.7-21.el7_9 will be installed
+--> Running transaction check
+---> Package krb5-devel.x86_64 0:1.15.1-55.el7_9 will be installed
+--> Processing Dependency: libkadm5(x86-64) = 1.15.1-55.el7_9 for package: krb5-devel-1.15.1-55.el7_9.x86_64
+--> Processing Dependency: libverto-devel for package: krb5-devel-1.15.1-55.el7_9.x86_64
+--> Processing Dependency: libselinux-devel for package: krb5-devel-1.15.1-55.el7_9.x86_64
+--> Processing Dependency: libcom_err-devel for package: krb5-devel-1.15.1-55.el7_9.x86_64
+--> Processing Dependency: keyutils-libs-devel for package: krb5-devel-1.15.1-55.el7_9.x86_64
+--> Running transaction check
+---> Package keyutils-libs-devel.x86_64 0:1.5.8-3.el7 will be installed
+---> Package libcom_err-devel.x86_64 0:1.42.9-19.el7 will be installed
+---> Package libkadm5.x86_64 0:1.15.1-55.el7_9 will be installed
+---> Package libselinux-devel.x86_64 0:2.5-15.el7 will be installed
+--> Processing Dependency: libsepol-devel(x86-64) >= 2.5-10 for package: libselinux-devel-2.5-15.el7.x86_64
+--> Processing Dependency: pkgconfig(libsepol) for package: libselinux-devel-2.5-15.el7.x86_64
+---> Package libverto-devel.x86_64 0:0.2.5-4.el7 will be installed
+--> Running transaction check
+---> Package libsepol-devel.x86_64 0:2.5-10.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+===========================================================================================================================================
+ Package                                Arch                      Version                                 Repository                  Size
+===========================================================================================================================================
+Installing:
+ openssl-devel                          x86_64                    1:1.0.2k-26.el7_9                       updates                    1.5 M
+ pcre-devel                             x86_64                    8.32-17.el7                             base                       480 k
+ zlib-devel                             x86_64                    1.2.7-21.el7_9                          updates                     50 k
+Installing for dependencies:
+ keyutils-libs-devel                    x86_64                    1.5.8-3.el7                             base                        37 k
+ krb5-devel                             x86_64                    1.15.1-55.el7_9                         updates                    273 k
+ libcom_err-devel                       x86_64                    1.42.9-19.el7                           base                        32 k
+ libkadm5                               x86_64                    1.15.1-55.el7_9                         updates                    180 k
+ libselinux-devel                       x86_64                    2.5-15.el7                              base                       187 k
+ libsepol-devel                         x86_64                    2.5-10.el7                              base                        77 k
+ libverto-devel                         x86_64                    0.2.5-4.el7                             base                        12 k
+
+Transaction Summary
+===========================================================================================================================================
+Install  3 Packages (+7 Dependent packages)
+
+Total download size: 2.8 M
+Installed size: 6.0 M
+Is this ok [y/d/N]: y
+Downloading packages:
+(1/10): libcom_err-devel-1.42.9-19.el7.x86_64.rpm                                                                   |  32 kB  00:00:00     
+(2/10): keyutils-libs-devel-1.5.8-3.el7.x86_64.rpm                                                                  |  37 kB  00:00:00     
+(3/10): libverto-devel-0.2.5-4.el7.x86_64.rpm                                                                       |  12 kB  00:00:00     
+(4/10): libsepol-devel-2.5-10.el7.x86_64.rpm                                                                        |  77 kB  00:00:00     
+(5/10): libkadm5-1.15.1-55.el7_9.x86_64.rpm                                                                         | 180 kB  00:00:00     
+(6/10): krb5-devel-1.15.1-55.el7_9.x86_64.rpm                                                                       | 273 kB  00:00:00     
+(7/10): libselinux-devel-2.5-15.el7.x86_64.rpm                                                                      | 187 kB  00:00:00     
+(8/10): pcre-devel-8.32-17.el7.x86_64.rpm                                                                           | 480 kB  00:00:00     
+(9/10): zlib-devel-1.2.7-21.el7_9.x86_64.rpm                                                                        |  50 kB  00:00:00     
+(10/10): openssl-devel-1.0.2k-26.el7_9.x86_64.rpm                                                                   | 1.5 MB  00:00:01     
+-------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                      1.3 MB/s | 2.8 MB  00:00:02     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : zlib-devel-1.2.7-21.el7_9.x86_64                                                                                       1/10 
+  Installing : libcom_err-devel-1.42.9-19.el7.x86_64                                                                                  2/10 
+  Installing : pcre-devel-8.32-17.el7.x86_64                                                                                          3/10 
+  Installing : libsepol-devel-2.5-10.el7.x86_64                                                                                       4/10 
+  Installing : libselinux-devel-2.5-15.el7.x86_64                                                                                     5/10 
+  Installing : libkadm5-1.15.1-55.el7_9.x86_64                                                                                        6/10 
+  Installing : libverto-devel-0.2.5-4.el7.x86_64                                                                                      7/10 
+  Installing : keyutils-libs-devel-1.5.8-3.el7.x86_64                                                                                 8/10 
+  Installing : krb5-devel-1.15.1-55.el7_9.x86_64                                                                                      9/10 
+  Installing : 1:openssl-devel-1.0.2k-26.el7_9.x86_64                                                                                10/10 
+  Verifying  : 1:openssl-devel-1.0.2k-26.el7_9.x86_64                                                                                 1/10 
+  Verifying  : libselinux-devel-2.5-15.el7.x86_64                                                                                     2/10 
+  Verifying  : keyutils-libs-devel-1.5.8-3.el7.x86_64                                                                                 3/10 
+  Verifying  : libverto-devel-0.2.5-4.el7.x86_64                                                                                      4/10 
+  Verifying  : libkadm5-1.15.1-55.el7_9.x86_64                                                                                        5/10 
+  Verifying  : krb5-devel-1.15.1-55.el7_9.x86_64                                                                                      6/10 
+  Verifying  : libsepol-devel-2.5-10.el7.x86_64                                                                                       7/10 
+  Verifying  : pcre-devel-8.32-17.el7.x86_64                                                                                          8/10 
+  Verifying  : libcom_err-devel-1.42.9-19.el7.x86_64                                                                                  9/10 
+  Verifying  : zlib-devel-1.2.7-21.el7_9.x86_64                                                                                      10/10 
+
+Installed:
+  openssl-devel.x86_64 1:1.0.2k-26.el7_9           pcre-devel.x86_64 0:8.32-17.el7           zlib-devel.x86_64 0:1.2.7-21.el7_9          
+
+Dependency Installed:
+  keyutils-libs-devel.x86_64 0:1.5.8-3.el7       krb5-devel.x86_64 0:1.15.1-55.el7_9        libcom_err-devel.x86_64 0:1.42.9-19.el7      
+  libkadm5.x86_64 0:1.15.1-55.el7_9              libselinux-devel.x86_64 0:2.5-15.el7       libsepol-devel.x86_64 0:2.5-10.el7           
+  libverto-devel.x86_64 0:0.2.5-4.el7           
+
+Complete!
+[vagrant@packages ~]$
+[vagrant@packages ~]$
+[vagrant@packages ~]$ rpmbuild -bb rpmbuild/SPECS/nginx.spec
+...
+Executing(%clean): /bin/sh -e /var/tmp/rpm-tmp.WnRAcl
++ umask 022
++ cd /home/vagrant/rpmbuild/BUILD
++ cd nginx-1.20.2
++ /usr/bin/rm -rf /home/vagrant/rpmbuild/BUILDROOT/nginx-1.20.2-1.el7.ngx.x86_64
++ exit 0
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ ll rpmbuild/RPMS/x86_64/
+total 2588
+-rw-rw-r--. 1 vagrant vagrant  808496 Sep 12 21:29 nginx-1.20.2-1.el7.ngx.x86_64.rpm
+-rw-rw-r--. 1 vagrant vagrant 1836144 Sep 12 21:29 nginx-debuginfo-1.20.2-1.el7.ngx.x86_64.rpm
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum localinstall -y sudo yum localinstall -y rpmbuild/RPMS/x86_64/nginx-1.20.2-1.el7.ngx.x86_64.rpm
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Skipping: sudo, filename does not end in .rpm.
+Skipping: yum, filename does not end in .rpm.
+Skipping: localinstall, filename does not end in .rpm.
+Examining rpmbuild/RPMS/x86_64/nginx-1.20.2-1.el7.ngx.x86_64.rpm: 1:nginx-1.20.2-1.el7.ngx.x86_64
+Marking rpmbuild/RPMS/x86_64/nginx-1.20.2-1.el7.ngx.x86_64.rpm to be installed
+Resolving Dependencies
+--> Running transaction check
+---> Package nginx.x86_64 1:1.20.2-1.el7.ngx will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+========================================================================================================================================================================
+ Package                       Arch                           Version                                      Repository                                              Size
+========================================================================================================================================================================
+Installing:
+ nginx                         x86_64                         1:1.20.2-1.el7.ngx                           /nginx-1.20.2-1.el7.ngx.x86_64                         2.8 M
+
+Transaction Summary
+========================================================================================================================================================================
+Install  1 Package
+
+Total size: 2.8 M
+Installed size: 2.8 M
+Downloading packages:
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : 1:nginx-1.20.2-1.el7.ngx.x86_64                                                                                                                      1/1 
+----------------------------------------------------------------------
+
+Thanks for using nginx!
+
+Please find the official documentation for nginx here:
+* https://nginx.org/en/docs/
+
+Please subscribe to nginx-announce mailing list to get
+the most important news about nginx:
+* https://nginx.org/en/support.html
+
+Commercial subscriptions for nginx are available on:
+* https://nginx.com/products/
+
+----------------------------------------------------------------------
+  Verifying  : 1:nginx-1.20.2-1.el7.ngx.x86_64                                                                                                                      1/1 
+
+Installed:
+  nginx.x86_64 1:1.20.2-1.el7.ngx                                                                                                                                       
+
+Complete!
+[vagrant@packages ~]$
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo systemctl status nginx
+● nginx.service - nginx - high performance web server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: active (running) since Tue 2023-09-12 21:42:26 UTC; 8s ago
+     Docs: http://nginx.org/en/docs/
+  Process: 9677 ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf (code=exited, status=0/SUCCESS)
+ Main PID: 9678 (nginx)
+   CGroup: /system.slice/nginx.service
+           ├─9678 nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf
+           └─9679 nginx: worker process
+
+Sep 12 21:42:26 packages systemd[1]: Starting nginx - high performance web server...
+Sep 12 21:42:26 packages systemd[1]: Can't open PID file /var/run/nginx.pid (yet?) after start: No such file or directory
+Sep 12 21:42:26 packages systemd[1]: Started nginx - high performance web server.
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo mkdir /usr/share/nginx/html/repo
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo cp rpmbuild/RPMS/x86_64/nginx-1.20.2-1.el7.ngx.x86_64.rpm /usr/share/nginx/html/repo/
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo wget https://downloads.percona.com/downloads/percona-distribution-mysql-ps/percona-distribution-mysql-ps-8.0.28/binary/redhat/8/x86_64/percona-orchestrator-3.2.6-2.el8.x86_64.rpm -O /usr/share/nginx/html/repo/percona-orchestrator-3.2.6-2.el8.x86_64.rpm
+--2023-09-12 21:55:40--  https://downloads.percona.com/downloads/percona-distribution-mysql-ps/percona-distribution-mysql-ps-8.0.28/binary/redhat/8/x86_64/percona-orchestrator-3.2.6-2.el8.x86_64.rpm
+Resolving downloads.percona.com (downloads.percona.com)... 49.12.125.205, 2a01:4f8:242:5792::2
+Connecting to downloads.percona.com (downloads.percona.com)|49.12.125.205|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 5222976 (5.0M) [application/x-redhat-package-manager]
+Saving to: '/usr/share/nginx/html/repo/percona-orchestrator-3.2.6-2.el8.x86_64.rpm'
+
+100%[==============================================================================================================================>] 5,222,976   3.40MB/s   in 1.5s   
+
+2023-09-12 21:55:42 (3.40 MB/s) - '/usr/share/nginx/html/repo/percona-orchestrator-3.2.6-2.el8.x86_64.rpm' saved [5222976/5222976]
+
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo createrepo /usr/share/nginx/html/repo/
+Spawning worker 0 with 2 pkgs
+Workers Finished
+Saving Primary metadata
+Saving file lists metadata
+Saving other metadata
+Generating sqlite DBs
+Sqlite DBs complete
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$
+[vagrant@packages ~]$ cat /etc/nginx/conf.d/default.conf | grep autoindex
+	autoindex on;
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo nginx -t
+nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+nginx: configuration file /etc/nginx/nginx.conf test is successful
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo systemctl status nginx
+● nginx.service - nginx - high performance web server
+   Loaded: loaded (/usr/lib/systemd/system/nginx.service; disabled; vendor preset: disabled)
+   Active: active (running) since Tue 2023-09-12 21:42:26 UTC; 18min ago
+     Docs: http://nginx.org/en/docs/
+  Process: 9677 ExecStart=/usr/sbin/nginx -c /etc/nginx/nginx.conf (code=exited, status=0/SUCCESS)
+ Main PID: 9678 (nginx)
+   CGroup: /system.slice/nginx.service
+           ├─9678 nginx: master process /usr/sbin/nginx -c /etc/nginx/nginx.conf
+           └─9786 nginx: worker process
+
+Sep 12 21:42:26 packages systemd[1]: Starting nginx - high performance web server...
+Sep 12 21:42:26 packages systemd[1]: Can't open PID file /var/run/nginx.pid (yet?) after start: No such file or directory
+Sep 12 21:42:26 packages systemd[1]: Started nginx - high performance web server.
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+vagrant@packages ~]$ curl -a http://localhost/repo/
+<html>
+<head><title>Index of /repo/</title></head>
+<body>
+<h1>Index of /repo/</h1><hr><pre><a href="../">../</a>
+<a href="repodata/">repodata/</a>                                          12-Sep-2023 21:57                   -
+<a href="nginx-1.20.2-1.el7.ngx.x86_64.rpm">nginx-1.20.2-1.el7.ngx.x86_64.rpm</a>                  12-Sep-2023 21:54              808496
+<a href="percona-orchestrator-3.2.6-2.el8.x86_64.rpm">percona-orchestrator-3.2.6-2.el8.x86_64.rpm</a>        16-Feb-2022 15:57             5222976
+</pre><hr></body>
+</html>
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ cat /etc/yum.repos.d/otus.repo
+[otus]
+name=otus-linux
+baseurl=http://localhost/repo
+gpgcheck=0
+enabled=1
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo  yum repolist enabled | grep otus
+Failed to set locale, defaulting to C
+otus                                otus-linux                                2
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum list | grep otus
+Failed to set locale, defaulting to C
+percona-orchestrator.x86_64                 2:3.2.6-2.el8              otus
+nginx.x86_64                                1:1.20.2-1.el7.ngx         otus 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum install percona-orchestrator.x86_64 -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.docker.ru
+ * updates: mirror.corbina.net
+Resolving Dependencies
+--> Running transaction check
+---> Package percona-orchestrator.x86_64 2:3.2.6-2.el8 will be installed
+--> Processing Dependency: jq >= 1.5 for package: 2:percona-orchestrator-3.2.6-2.el8.x86_64
+--> Processing Dependency: oniguruma for package: 2:percona-orchestrator-3.2.6-2.el8.x86_64
+--> Processing Dependency: libc.so.6(GLIBC_2.28)(64bit) for package: 2:percona-orchestrator-3.2.6-2.el8.x86_64
+--> Finished Dependency Resolution
+Error: Package: 2:percona-orchestrator-3.2.6-2.el8.x86_64 (otus)
+           Requires: oniguruma
+Error: Package: 2:percona-orchestrator-3.2.6-2.el8.x86_64 (otus)
+           Requires: jq >= 1.5
+Error: Package: 2:percona-orchestrator-3.2.6-2.el8.x86_64 (otus)
+           Requires: libc.so.6(GLIBC_2.28)(64bit)
+ You could try using --skip-broken to work around the problem
+ You could try running: rpm -Va --nofiles --nodigest
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum install epel-release -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * extras: mirror.docker.ru
+ * updates: mirror.corbina.net
+Resolving Dependencies
+--> Running transaction check
+---> Package epel-release.noarch 0:7-11 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+========================================================================================================================================================================
+ Package                                      Arch                                   Version                               Repository                              Size
+========================================================================================================================================================================
+Installing:
+ epel-release                                 noarch                                 7-11                                  extras                                  15 k
+
+Transaction Summary
+========================================================================================================================================================================
+Install  1 Package
+
+Total download size: 15 k
+Installed size: 24 k
+Downloading packages:
+epel-release-7-11.noarch.rpm                                                                                                                     |  15 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : epel-release-7-11.noarch                                                                                                                             1/1 
+  Verifying  : epel-release-7-11.noarch                                                                                                                             1/1 
+
+Installed:
+  epel-release.noarch 0:7-11                                                                                                                                            
+
+Complete!
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum install oniguruma -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+epel/x86_64/metalink                                                                                                                             |  31 kB  00:00:00     
+ * base: mirror.corbina.net
+ * epel: mirror.logol.ru
+ * extras: mirror.docker.ru
+ * updates: mirror.corbina.net
+epel                                                                                                                                             | 4.7 kB  00:00:00     
+(1/3): epel/x86_64/group_gz                                                                                                                      |  99 kB  00:00:00     
+(2/3): epel/x86_64/updateinfo                                                                                                                    | 1.0 MB  00:00:00     
+(3/3): epel/x86_64/primary_db                                                                                                                    | 7.0 MB  00:00:01     
+Resolving Dependencies
+--> Running transaction check
+---> Package oniguruma.x86_64 0:6.8.2-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+========================================================================================================================================================================
+ Package                                  Arch                                  Version                                       Repository                           Size
+========================================================================================================================================================================
+Installing:
+ oniguruma                                x86_64                                6.8.2-2.el7                                   epel                                181 k
+
+Transaction Summary
+========================================================================================================================================================================
+Install  1 Package
+
+Total download size: 181 k
+Installed size: 672 k
+Downloading packages:
+warning: /var/cache/yum/x86_64/7/epel/packages/oniguruma-6.8.2-2.el7.x86_64.rpm: Header V4 RSA/SHA256 Signature, key ID 352c64e5: NOKEY  0.0 B/s |    0 B  --:--:-- ETA 
+Public key for oniguruma-6.8.2-2.el7.x86_64.rpm is not installed
+oniguruma-6.8.2-2.el7.x86_64.rpm                                                                                                                 | 181 kB  00:00:00     
+Retrieving key from file:///etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Importing GPG key 0x352C64E5:
+ Userid     : "Fedora EPEL (7) <epel@fedoraproject.org>"
+ Fingerprint: 91e9 7d7c 4a5e 96f1 7f3e 888f 6a2f aea2 352c 64e5
+ Package    : epel-release-7-11.noarch (@extras)
+ From       : /etc/pki/rpm-gpg/RPM-GPG-KEY-EPEL-7
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : oniguruma-6.8.2-2.el7.x86_64                                                                                                                         1/1 
+  Verifying  : oniguruma-6.8.2-2.el7.x86_64                                                                                                                         1/1 
+
+Installed:
+  oniguruma.x86_64 0:6.8.2-2.el7                                                                                                                                        
+
+Complete!
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum install jq -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * epel: mirror.logol.ru
+ * extras: mirror.docker.ru
+ * updates: mirror.corbina.net
+Resolving Dependencies
+--> Running transaction check
+---> Package jq.x86_64 0:1.6-2.el7 will be installed
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+========================================================================================================================================================================
+ Package                              Arch                                     Version                                     Repository                              Size
+========================================================================================================================================================================
+Installing:
+ jq                                   x86_64                                   1.6-2.el7                                   epel                                   167 k
+
+Transaction Summary
+========================================================================================================================================================================
+Install  1 Package
+
+Total download size: 167 k
+Installed size: 381 k
+Downloading packages:
+jq-1.6-2.el7.x86_64.rpm                                                                                                                          | 167 kB  00:00:00     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : jq-1.6-2.el7.x86_64                                                                                                                                  1/1 
+  Verifying  : jq-1.6-2.el7.x86_64                                                                                                                                  1/1 
+
+Installed:
+  jq.x86_64 0:1.6-2.el7                                                                                                                                                 
+
+Complete!
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum install libc.so.6 -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * epel: mirror.logol.ru
+ * extras: mirror.docker.ru
+ * updates: mirror.corbina.net
+Resolving Dependencies
+--> Running transaction check
+---> Package glibc.i686 0:2.17-326.el7_9 will be installed
+--> Processing Dependency: libfreebl3.so(NSSRAWHASH_3.12.3) for package: glibc-2.17-326.el7_9.i686
+--> Processing Dependency: libfreebl3.so for package: glibc-2.17-326.el7_9.i686
+--> Running transaction check
+---> Package nss-softokn-freebl.x86_64 0:3.44.0-8.el7_7 will be updated
+---> Package nss-softokn-freebl.i686 0:3.79.0-4.el7_9 will be installed
+--> Processing Dependency: nss-util >= 3.79.0-1 for package: nss-softokn-freebl-3.79.0-4.el7_9.i686
+--> Processing Dependency: nspr >= 4.34.0 for package: nss-softokn-freebl-3.79.0-4.el7_9.i686
+---> Package nss-softokn-freebl.x86_64 0:3.79.0-4.el7_9 will be an update
+--> Running transaction check
+---> Package nspr.x86_64 0:4.21.0-1.el7 will be updated
+---> Package nspr.x86_64 0:4.34.0-3.1.el7_9 will be an update
+---> Package nss-util.x86_64 0:3.44.0-4.el7_7 will be updated
+---> Package nss-util.x86_64 0:3.79.0-1.el7_9 will be an update
+--> Finished Dependency Resolution
+
+Dependencies Resolved
+
+========================================================================================================================================================================
+ Package                                       Arch                              Version                                       Repository                          Size
+========================================================================================================================================================================
+Installing:
+ glibc                                         i686                              2.17-326.el7_9                                updates                            4.3 M
+Installing for dependencies:
+ nss-softokn-freebl                            i686                              3.79.0-4.el7_9                                updates                            325 k
+Updating for dependencies:
+ nspr                                          x86_64                            4.34.0-3.1.el7_9                              updates                            128 k
+ nss-softokn-freebl                            x86_64                            3.79.0-4.el7_9                                updates                            337 k
+ nss-util                                      x86_64                            3.79.0-1.el7_9                                updates                             80 k
+
+Transaction Summary
+========================================================================================================================================================================
+Install  1 Package  (+1 Dependent package)
+Upgrade             ( 3 Dependent packages)
+
+Total download size: 5.1 M
+Downloading packages:
+No Presto metadata available for updates
+(1/5): nss-softokn-freebl-3.79.0-4.el7_9.x86_64.rpm                                                                                              | 337 kB  00:00:00     
+(2/5): nspr-4.34.0-3.1.el7_9.x86_64.rpm                                                                                                          | 128 kB  00:00:00     
+(3/5): nss-softokn-freebl-3.79.0-4.el7_9.i686.rpm                                                                                                | 325 kB  00:00:00     
+(4/5): nss-util-3.79.0-1.el7_9.x86_64.rpm                                                                                                        |  80 kB  00:00:00     
+(5/5): glibc-2.17-326.el7_9.i686.rpm                                                                                                             | 4.3 MB  00:00:01     
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Total                                                                                                                                   4.5 MB/s | 5.1 MB  00:00:01     
+Running transaction check
+Running transaction test
+Transaction test succeeded
+Running transaction
+  Installing : nss-softokn-freebl-3.79.0-4.el7_9.i686                                                                                                               1/8 
+  Installing : glibc-2.17-326.el7_9.i686                                                                                                                            2/8 
+  Updating   : nspr-4.34.0-3.1.el7_9.x86_64                                                                                                                         3/8 
+  Updating   : nss-util-3.79.0-1.el7_9.x86_64                                                                                                                       4/8 
+  Updating   : nss-softokn-freebl-3.79.0-4.el7_9.x86_64                                                                                                             5/8 
+  Cleanup    : nss-softokn-freebl-3.44.0-8.el7_7.x86_64                                                                                                             6/8 
+  Cleanup    : nss-util-3.44.0-4.el7_7.x86_64                                                                                                                       7/8 
+  Cleanup    : nspr-4.21.0-1.el7.x86_64                                                                                                                             8/8 
+  Verifying  : nss-util-3.79.0-1.el7_9.x86_64                                                                                                                       1/8 
+  Verifying  : nss-softokn-freebl-3.79.0-4.el7_9.x86_64                                                                                                             2/8 
+  Verifying  : nss-softokn-freebl-3.79.0-4.el7_9.i686                                                                                                               3/8 
+  Verifying  : nspr-4.34.0-3.1.el7_9.x86_64                                                                                                                         4/8 
+  Verifying  : glibc-2.17-326.el7_9.i686                                                                                                                            5/8 
+  Verifying  : nss-util-3.44.0-4.el7_7.x86_64                                                                                                                       6/8 
+  Verifying  : nss-softokn-freebl-3.44.0-8.el7_7.x86_64                                                                                                             7/8 
+  Verifying  : nspr-4.21.0-1.el7.x86_64                                                                                                                             8/8 
+
+Installed:
+  glibc.i686 0:2.17-326.el7_9                                                                                                                                           
+
+Dependency Installed:
+  nss-softokn-freebl.i686 0:3.79.0-4.el7_9                                                                                                                              
+
+Dependency Updated:
+  nspr.x86_64 0:4.34.0-3.1.el7_9                     nss-softokn-freebl.x86_64 0:3.79.0-4.el7_9                     nss-util.x86_64 0:3.79.0-1.el7_9                    
+
+Complete!
+[vagrant@packages ~]$
+[vagrant@packages ~]$ 
+[vagrant@packages ~]$ sudo yum install percona-orchestrator.x86_64
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: mirror.corbina.net
+ * epel: mirror.logol.ru
+ * extras: mirror.docker.ru
+ * updates: mirror.corbina.net
+Resolving Dependencies
+--> Running transaction check
+---> Package percona-orchestrator.x86_64 2:3.2.6-2.el8 will be installed
+--> Processing Dependency: libc.so.6(GLIBC_2.28)(64bit) for package: 2:percona-orchestrator-3.2.6-2.el8.x86_64
+--> Finished Dependency Resolution
+Error: Package: 2:percona-orchestrator-3.2.6-2.el8.x86_64 (otus)
+           Requires: libc.so.6(GLIBC_2.28)(64bit)
+ You could try using --skip-broken to work around the problem
+ You could try running: rpm -Va --nofiles --nodigest
+[vagrant@packages ~]$
+[vagrant@packages ~]$
+
+
+
+
