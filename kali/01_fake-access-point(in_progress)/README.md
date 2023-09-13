@@ -4,7 +4,7 @@
 
 Check if the system sees the adapter:
 ```
-1susb
+lsusb
 ```
 
 Check if the wireless interface (wlan) is up:
