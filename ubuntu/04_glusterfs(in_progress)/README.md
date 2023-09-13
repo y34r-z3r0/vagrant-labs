@@ -1,5 +1,0 @@
-# GlusterFS
-
-```
-please stand by...
-```
