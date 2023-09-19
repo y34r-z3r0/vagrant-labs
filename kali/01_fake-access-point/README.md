@@ -34,4 +34,8 @@ Since it was not possible to configure `pipe` inside the `nohup`, the entire out
 cat result.txt | grep AP-STA-CONNECTED | cut -d" " -f3 | uniq
 ```
 
-To map the MAC address to the hostname you need to use your enterprise solutions, for example FleetDM/Osquery or ARP tables.
+To map the MAC address to the hostname you need to use your enterprise solutions, for example FleetDM/Osquery or some ARP tables.
+
+## Attack
+
+See docs for attacks options: https://github.com/sensepost/berate_ap#attacks
