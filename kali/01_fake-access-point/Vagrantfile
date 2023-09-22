@@ -17,6 +17,6 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.provision "shell", inline: <<-SHELL
-    sudo apt update && sudo apt install realtek-rt188xxau-dkms berate-ap lua5.1 alsa-utils triggerhappy curl -y
+    sudo apt update && sudo apt install realtek-rtl88xxau-dkms berate-ap lua5.1 alsa-utils triggerhappy curl -y
   SHELL
 end
