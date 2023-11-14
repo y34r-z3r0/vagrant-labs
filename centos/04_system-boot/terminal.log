@@ -1,0 +1,107 @@
+[vagrant@centos ~]$ sudo vgs
+  VG         #PV #LV #SN Attr   VSize   VFree  
+  VolGroup00   1   3   0 wz--n- <38.97g <27.47g
+  vg_var       2   1   0 wz--n-   1.99g 128.00m
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo vgrename VolGroup00 OtusRoot
+  Volume group "VolGroup00" successfully renamed to "OtusRoot"
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /etc/fstab | grep VolGroup00
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /etc/default/grub | grep VolGroup00
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /boot/grub2/grub.cfg | grep VolGroup00
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ [vagrant@centos ~]$ sudo mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
+Executing: /sbin/dracut -f -v /boot/initramfs-3.10.0-862.2.3.el7.x86_64.img 3.10.0-862.2.3.el7.x86_64
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+dracut module 'dmsquash-live-ntfs' will not be installed, because command 'ntfs-3g' could not be found!
+dracut module 'multipath' will not be installed, because command 'multipath' could not be found!
+...
+*** Creating image file done ***
+*** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo reboot
+Connection to 127.0.0.1 closed by remote host.
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo vgs
+  VG       #PV #LV #SN Attr   VSize   VFree  
+  OtusRoot   1   3   0 wz--n- <38.97g <27.47g
+  vg_var     2   1   0 wz--n-   1.99g 128.00m
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo mkdir /usr/lib/dracut/modules.d/01test
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /usr/lib/dracut/modules.d/01test/module-setup.sh
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /usr/lib/dracut/modules.d/01test/test.sh
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /usr/lib/dracut/modules.d/01test/module-setup.sh
+
+#!/bin/bash
+
+check() {
+	return 0
+}
+
+depends() {
+	return 0
+}
+install() {
+    inst_hook cleanup 00 "${moddir}/test.sh"
+}
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /usr/lib/dracut/modules.d/01test/test.sh 
+
+#!/bin/bash
+
+exec 0<>/dev/console 1<>/dev/console 2<>/dev/console
+cat <<'msgend'
+Hello! You are in dracut module!
+ ___________________
+< I'm dracut module >
+ -------------------
+   \
+    \
+        .--.
+       |o_o |
+       |:_/ |
+      //   \ \
+     (|     | )
+    /'\_   _/`\
+    \___)=(___/
+msgend
+sleep 10
+echo " continuing...."
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ [vagrant@centos ~]$ sudo mkinitrd -f -v /boot/initramfs-$(uname -r).img $(uname -r)
+Executing: /sbin/dracut -f -v /boot/initramfs-3.10.0-862.2.3.el7.x86_64.img 3.10.0-862.2.3.el7.x86_64
+dracut module 'busybox' will not be installed, because command 'busybox' could not be found!
+dracut module 'crypt' will not be installed, because command 'cryptsetup' could not be found!
+dracut module 'dmraid' will not be installed, because command 'dmraid' could not be found!
+...
+*** Creating image file ***
+*** Creating image file done ***
+*** Creating initramfs image file '/boot/initramfs-3.10.0-862.2.3.el7.x86_64.img' done ***
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo lsinitrd -m /boot/initramfs-$(uname -r).img | grep test
+test
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
