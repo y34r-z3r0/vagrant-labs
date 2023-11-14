@@ -1,0 +1,305 @@
+[vagrant@centos ~]$ sudo touch /etc/sysconfig/watchlog
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[[vagrant@centos ~]$ sudo nano /etc/sysconfig/watchlog
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /etc/sysconfig/watchlog
+
+WORD="ALERT"
+LOG=/var/log/watchlog.log
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /opt/watchlog.sh
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo chmod 744 /opt/watchlog.sh
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /opt/watchlog.sh
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /opt/watchlog.sh
+
+#!/bin/bash
+
+WORD=$1
+LOG=$2
+DATE=`date`
+
+if grep $WORD $LOG &> /dev/null
+then
+logger "$DATE: I found word, Master!"
+else
+exit 0
+fi
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /etc/systemd/system/watchlog.service
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/systemd/system/watchlog.service
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo chmod 744 /etc/systemd/system/watchlog.service
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /etc/systemd/system/watchlog.service
+
+[Unit]
+Description=My watchlog service
+
+[Service]
+Type=oneshot
+EnvironmentFile=/etc/sysconfig/watchlog
+ExecStart=/opt/watchlog.sh $WORD $LOG
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /etc/systemd/system/watchlog.timer
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo chmod 744 /etc/systemd/system/watchlog.timer 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/systemd/system/watchlog.timer 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /etc/systemd/system/watchlog.timer 
+
+[Unit]
+Description=Run watchlog script every 30 second
+
+[Timer]
+# Run every 30 second
+OnUnitActiveSec=30
+Unit=watchlog.service
+
+[Install]
+WantedBy=multi-user.target
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /var/log/watchlog.log
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /var/log/watchlog.log
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /var/log/watchlog.log
+
+[001] ALERT test log
+[002] EMPTY test log
+[003] ALERT test log
+[004] EMPTY test log
+[005] ALERT test log
+[006] EMPTY test log
+[007] ALERT test log
+[008] EMPTY test log
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$
+[vagrant@centos ~]$ systemctl start watchlog.timer
+==== AUTHENTICATING FOR org.freedesktop.systemd1.manage-units ===
+Authentication is required to manage system services or units.
+Authenticating as: root
+Password: 
+==== AUTHENTICATION COMPLETE ===
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /var/log/messages | grep Master
+
+Nov 14 12:34:38 centos root: Tue Nov 14 12:34:38 UTC 2023: I found word, Master!
+Nov 14 12:35:08 centos root: Tue Nov 14 12:35:08 UTC 2023: I found word, Master!
+Nov 14 12:35:39 centos root: Tue Nov 14 12:35:39 UTC 2023: I found word, Master!
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+vagrant@centos ~]$ sudo yum install epel-release -y && sudo yum install spawn-fcgi php php-cli -y
+Failed to set locale, defaulting to C
+Loaded plugins: fastestmirror
+Loading mirror speeds from cached hostfile
+ * base: centos-mirror.rbc.ru
+ * extras: centos-mirror.rbc.ru
+ * updates: mirror.yandex.ru
+...
+Complete!
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ ls -l /etc/rc.d/init.d/spawn-fcgi
+-rwxr-xr-x. 1 root root 2129 Feb  6  2014 /etc/rc.d/init.d/spawn-fcgi
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/sysconfig/spawn-fcgi
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /etc/sysconfig/spawn-fcgi
+
+# You must set some working options before the "spawn-fcgi" service will work.
+# If SOCKET points to a file, then this file is cleaned up by the init script.
+#
+# See spawn-fcgi(1) for all possible options.
+#
+# Example :
+SOCKET=/var/run/php-fcgi.sock
+OPTIONS="-u apache -g apache -s $SOCKET -S -M 0600 -C 32 -F 1 -P /var/run/spawn-fcgi.pid -- /usr/bin/php-cgi"
+
+[vagrant@centos ~]$
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /etc/systemd/system/spawn-fcgi.service
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/systemd/system/spawn-fcgi.service
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /etc/systemd/system/spawn-fcgi.service
+
+[Unit]
+Description=Spawn-fcgi startup service by Otus
+After=network.target
+
+[Service]
+Type=simple
+PIDFile=/var/run/spawn-fcgi.pid
+EnvironmentFile=/etc/sysconfig/spawn-fcgi
+ExecStart=/usr/bin/spawn-fcgi -n $OPTIONS
+KillMode=process
+
+[Install]
+WantedBy=multi-user.target
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl start spawn-fcgi
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status spawn-fcgi
+● spawn-fcgi.service - Spawn-fcgi startup service by Otus
+   Loaded: loaded (/etc/systemd/system/spawn-fcgi.service; disabled; vendor preset: disabled)
+   Active: active (running) since Tue 2023-11-14 12:43:06 UTC; 6s ago
+ Main PID: 2636 (php-cgi)
+   CGroup: /system.slice/spawn-fcgi.service
+           ├─2636 /usr/bin/php-cgi
+           ├─2637 /usr/bin/php-cgi
+           ├─2638 /usr/bin/php-cgi
+           ├─2639 /usr/bin/php-cgi
+           ├─2640 /usr/bin/php-cgi
+           ├─2641 /usr/bin/php-cgi
+           ├─2642 /usr/bin/php-cgi
+           ├─2643 /usr/bin/php-cgi
+           ├─2644 /usr/bin/php-cgi
+           ├─2645 /usr/bin/php-cgi
+           ├─2646 /usr/bin/php-cgi
+           ├─2647 /usr/bin/php-cgi
+           ├─2648 /usr/bin/php-cgi
+           ├─2649 /usr/bin/php-cgi
+           ├─2650 /usr/bin/php-cgi
+           ├─2651 /usr/bin/php-cgi
+           ├─2652 /usr/bin/php-cgi
+           ├─2653 /usr/bin/php-cgi
+           ├─2654 /usr/bin/php-cgi
+           ├─2655 /usr/bin/php-cgi
+           ├─2656 /usr/bin/php-cgi
+           ├─2657 /usr/bin/php-cgi
+           ├─2658 /usr/bin/php-cgi
+           ├─2659 /usr/bin/php-cgi
+           ├─2660 /usr/bin/php-cgi
+           ├─2661 /usr/bin/php-cgi
+           ├─2662 /usr/bin/php-cgi
+           ├─2663 /usr/bin/php-cgi
+           ├─2664 /usr/bin/php-cgi
+           ├─2665 /usr/bin/php-cgi
+           ├─2666 /usr/bin/php-cgi
+           ├─2667 /usr/bin/php-cgi
+           └─2668 /usr/bin/php-cgi
+
+Nov 14 12:43:06 centos systemd[1]: Started Spawn-fcgi startup service by Otus.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /usr/lib/systemd/system/httpd.service
+[Unit]
+Description=The Apache HTTP Server
+Wants=httpd-init.service
+
+After=network.target remote-fs.target nss-lookup.target httpd-init.service
+
+Documentation=man:httpd.service(8)
+
+[Service]
+Type=notify
+Environment=LANG=C
+EnvironmentFile=/etc/sysconfig/httpd-%I
+ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND
+ExecReload=/usr/sbin/httpd $OPTIONS -k graceful
+# Send SIGWINCH for graceful stop
+KillSignal=SIGWINCH
+KillMode=mixed
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /etc/sysconfig/httpd-first
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/sysconfig/httpd-first
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /etc/sysconfig/httpd-first
+
+OPTIONS=-f conf/first.conf
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /etc/sysconfig/httpd-second
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/sysconfig/httpd-second
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /etc/sysconfig/httpd-second
+
+OPTIONS=-f conf/second.conf
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /etc/httpd/conf/first.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/httpd/conf/first.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /etc/httpd/conf/first.conf
+
+PidFile /var/run/httpd-first.pid
+Listen 8080
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo touch /etc/httpd/conf/second.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo nano /etc/httpd/conf/second.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo cat /etc/httpd/conf/second.conf
+
+PidFile /var/run/httpd-second.pid
+Listen 8081
+
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl start httpd@first
+Failed to start httpd@first.service: Unit not found.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl start httpd@second
+Failed to start httpd@second.service: Unit not found.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$
+
+
