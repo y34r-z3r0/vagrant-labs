@@ -301,5 +301,103 @@ Failed to start httpd@first.service: Unit not found.
 Failed to start httpd@second.service: Unit not found.
 [vagrant@centos ~]$ 
 [vagrant@centos ~]$
+[vagrant@centos ~]$ mv /usr/lib/systemd/system/httpd.service /usr/lib/systemd/system/httpd@.service
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$
+[vagrant@centos ~]$ sudo systemctl start httpd@first
+Job for httpd@first.service failed because the control process exited with error code. See "systemctl status httpd@first.service" and "journalctl -xe" for details.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status httpd@first.service
+● httpd@first.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd@.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Wed 2023-11-15 07:50:49 UTC; 20s ago
+     Docs: man:httpd.service(8)
+  Process: 2123 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=1/FAILURE)
+ Main PID: 2123 (code=exited, status=1/FAILURE)
 
+Nov 15 07:50:48 centos systemd[1]: Starting The Apache HTTP Server...
+Nov 15 07:50:49 centos httpd[2123]: AH00534: httpd: Configuration error: No MPM loaded.
+Nov 15 07:50:49 centos systemd[1]: httpd@first.service: main process exited, code=exited, status=1/FAILURE
+Nov 15 07:50:49 centos systemd[1]: Failed to start The Apache HTTP Server.
+Nov 15 07:50:49 centos systemd[1]: Unit httpd@first.service entered failed state.
+Nov 15 07:50:49 centos systemd[1]: httpd@first.service failed.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo echo 'LoadModule mpm_event_module modules/mod_mpm_event.so' >> /etc/httpd/conf/first.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl start httpd@first.service
+Job for httpd@first.service failed because the control process exited with error code. See "systemctl status httpd@first.service" and "journalctl -xe" for details.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status httpd@first.service
+● httpd@first.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd@.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Wed 2023-11-15 08:24:47 UTC; 2s ago
+     Docs: man:httpd.service(8)
+  Process: 2671 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=1/FAILURE)
+ Main PID: 2671 (code=exited, status=1/FAILURE)
 
+Nov 15 08:24:47 centos systemd[1]: Starting The Apache HTTP Server...
+Nov 15 08:24:47 centos httpd[2671]: AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this message
+Nov 15 08:24:47 centos systemd[1]: httpd@first.service: main process exited, code=exited, status=1/FAILURE
+Nov 15 08:24:47 centos systemd[1]: Failed to start The Apache HTTP Server.
+Nov 15 08:24:47 centos systemd[1]: Unit httpd@first.service entered failed state.
+Nov 15 08:24:47 centos systemd[1]: httpd@first.service failed.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo echo 'ServerName localhost:8080' >> /etc/httpd/conf/first.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl start httpd@first.service
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status httpd@first.service
+● httpd@first.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd@.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Wed 2023-11-15 08:28:54 UTC; 26s ago
+     Docs: man:httpd.service(8)
+  Process: 2736 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=1/FAILURE)
+ Main PID: 2736 (code=exited, status=1/FAILURE)
+
+Nov 15 08:28:53 centos systemd[1]: Starting The Apache HTTP Server...
+Nov 15 08:28:54 centos systemd[1]: httpd@first.service: main process exited, code=exited, status=1/FAILURE
+Nov 15 08:28:54 centos systemd[1]: Failed to start The Apache HTTP Server.
+Nov 15 08:28:54 centos systemd[1]: Unit httpd@first.service entered failed state.
+Nov 15 08:28:54 centos systemd[1]: httpd@first.service failed.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo echo 'LoadModule mpm_event_module modules/mod_mpm_event.so' >> /etc/httpd/conf/first.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo echo 'ServerName localhost:8080' >> /etc/httpd/conf/first.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status httpd@second.service
+● httpd@second.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd@.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Wed 2023-11-15 08:35:21 UTC; 5s ago
+     Docs: man:httpd.service(8)
+  Process: 2775 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=1/FAILURE)
+ Main PID: 2775 (code=exited, status=1/FAILURE)
+
+Nov 15 08:35:21 centos systemd[1]: Starting The Apache HTTP Server...
+Nov 15 08:35:21 centos httpd[2775]: (13)Permission denied: AH00072: make_sock: could not bind to address [::]:8081
+Nov 15 08:35:21 centos httpd[2775]: (13)Permission denied: AH00072: make_sock: could not bind to address 0.0.0.0:8081
+Nov 15 08:35:21 centos httpd[2775]: no listening sockets available, shutting down
+Nov 15 08:35:21 centos httpd[2775]: AH00015: Unable to open logs
+Nov 15 08:35:21 centos systemd[1]: httpd@second.service: main process exited, code=exited, status=1/FAILURE
+Nov 15 08:35:21 centos systemd[1]: Failed to start The Apache HTTP Server.
+Nov 15 08:35:21 centos systemd[1]: Unit httpd@second.service entered failed state.
+Nov 15 08:35:21 centos systemd[1]: httpd@second.service failed.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ httpd -v
+Server version: Apache/2.4.6 (CentOS)
+Server built:   May 30 2023 14:01:11
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ cat /etc/centos-release
+CentOS Linux release 7.9.2009 (Core)
