@@ -42,3 +42,6 @@ AH00016: Configuration Failed
 [Wed Nov 15 11:53:57.228669 2023] [unixd:alert] [pid 1144:tid 140613063825536] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
 [Wed Nov 15 11:53:57.229742 2023] [unixd:alert] [pid 1142:tid 140613063825536] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
 [Wed Nov 15 11:55:27.288055 2023] [mpm_event:notice] [pid 1141:tid 140613063825536] AH00492: caught SIGWINCH, shutting down gracefully
+[Wed Nov 15 12:02:08.567866 2023] [mpm_event:notice] [pid 1309:tid 140058457274496] AH00489: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Wed Nov 15 12:02:08.567967 2023] [core:notice] [pid 1309:tid 140058457274496] AH00094: Command line: '/usr/sbin/httpd -f conf/first.conf -D FOREGROUND'
+[Wed Nov 15 12:03:38.538272 2023] [mpm_event:notice] [pid 1309:tid 140058457274496] AH00492: caught SIGWINCH, shutting down gracefully
