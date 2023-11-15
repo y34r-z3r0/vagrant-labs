@@ -401,3 +401,59 @@ Server built:   May 30 2023 14:01:11
 [vagrant@centos ~]$ 
 [vagrant@centos ~]$ cat /etc/centos-release
 CentOS Linux release 7.9.2009 (Core)
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sestatus
+SELinux status:                 disabled
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl start httpd@first.service
+Job for httpd@first.service failed because the control process exited with error code. See "systemctl status httpd@first.service" and "journalctl -xe" for details.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status httpd@first.service
+● httpd@first.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd@.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Wed 2023-11-15 09:24:10 UTC; 10s ago
+     Docs: man:httpd.service(8)
+  Process: 958 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=1/FAILURE)
+ Main PID: 958 (code=exited, status=1/FAILURE)
+
+Nov 15 09:24:10 centos systemd[1]: Starting The Apache HTTP Server...
+Nov 15 09:24:10 centos systemd[1]: httpd@first.service: main process exited, code=exited, status=1/FAILURE
+Nov 15 09:24:10 centos systemd[1]: Failed to start The Apache HTTP Server.
+Nov 15 09:24:10 centos systemd[1]: Unit httpd@first.service entered failed state.
+Nov 15 09:24:10 centos systemd[1]: httpd@first.service failed.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl start httpd@second.service
+Job for httpd@second.service failed because the control process exited with error code. See "systemctl status httpd@second.service" and "journalctl -xe" for details.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status httpd@second.service
+● httpd@second.service - The Apache HTTP Server
+   Loaded: loaded (/usr/lib/systemd/system/httpd@.service; disabled; vendor preset: disabled)
+   Active: failed (Result: exit-code) since Wed 2023-11-15 09:24:37 UTC; 2s ago
+     Docs: man:httpd.service(8)
+  Process: 973 ExecStart=/usr/sbin/httpd $OPTIONS -DFOREGROUND (code=exited, status=1/FAILURE)
+ Main PID: 973 (code=exited, status=1/FAILURE)
+
+Nov 15 09:24:37 centos systemd[1]: Starting The Apache HTTP Server...
+Nov 15 09:24:37 centos systemd[1]: httpd@second.service: main process exited, code=exited, status=1/FAILURE
+Nov 15 09:24:37 centos systemd[1]: Failed to start The Apache HTTP Server.
+Nov 15 09:24:37 centos systemd[1]: Unit httpd@second.service entered failed state.
+Nov 15 09:24:37 centos systemd[1]: httpd@second.service failed.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo systemctl status httpd.service
+Unit httpd.service could not be found.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo journalctl -p err
+-- Logs begin at Wed 2023-11-15 09:22:56 UTC, end at Wed 2023-11-15 09:27:06 UTC. --
+Nov 15 09:22:56 centos kernel: RETBleed: WARNING: Spectre v2 mitigation leaves CPU vulnerable to RETBleed attacks, data leaks possible!
+Nov 15 09:23:05 centos systemd[1]: Failed to start LSB: Bring up/down networking.
+Nov 15 09:24:10 centos systemd[1]: Failed to start The Apache HTTP Server.
+Nov 15 09:24:37 centos systemd[1]: Failed to start The Apache HTTP Server.
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
