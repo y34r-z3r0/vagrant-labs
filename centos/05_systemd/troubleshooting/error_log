@@ -1,0 +1,44 @@
+[Tue Nov 14 13:29:50.630341 2023] [core:notice] [pid 3652] SELinux policy enabled; httpd running as context system_u:system_r:httpd_t:s0
+[Tue Nov 14 13:29:50.632040 2023] [suexec:notice] [pid 3652] AH01232: suEXEC mechanism enabled (wrapper: /usr/sbin/suexec)
+AH00558: httpd: Could not reliably determine the server's fully qualified domain name, using 127.0.1.1. Set the 'ServerName' directive globally to suppress this message
+[Tue Nov 14 13:29:50.648617 2023] [lbmethod_heartbeat:notice] [pid 3652] AH02282: No slotmem from mod_heartmonitor
+[Tue Nov 14 13:29:50.651012 2023] [mpm_prefork:notice] [pid 3652] AH00163: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Tue Nov 14 13:29:50.651032 2023] [core:notice] [pid 3652] AH00094: Command line: '/usr/sbin/httpd -D FOREGROUND'
+[Tue Nov 14 13:43:57.570035 2023] [mpm_prefork:notice] [pid 3652] AH00170: caught SIGWINCH, shutting down gracefully
+[Wed Nov 15 08:18:17.613020 2023] [core:crit] [pid 2563:tid 139749433723008] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 08:23:02.254782 2023] [core:crit] [pid 2631:tid 140150307530880] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 08:24:47.262066 2023] [core:crit] [pid 2671:tid 139983010265216] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 08:28:54.018149 2023] [core:crit] [pid 2736:tid 140276008294528] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 08:29:21.989864 2023] [core:crit] [pid 2757:tid 139683106928768] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 09:24:10.201266 2023] [core:crit] [pid 958:tid 140039576471680] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 09:24:37.655125 2023] [core:crit] [pid 973:tid 140672627656832] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 09:27:36.373113 2023] [core:crit] [pid 1012:tid 140004074272896] AH00136: Server MUST relinquish startup privileges before accepting connections.  Please ensure mod_unixd or other system security module is loaded.
+AH00016: Configuration Failed
+[Wed Nov 15 11:34:45.950092 2023] [mpm_event:notice] [pid 21320:tid 139751569631360] AH00489: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Wed Nov 15 11:34:45.950246 2023] [core:notice] [pid 21320:tid 139751569631360] AH00094: Command line: '/usr/sbin/httpd -f conf/first.conf -D FOREGROUND'
+[Wed Nov 15 11:34:45.951036 2023] [unixd:alert] [pid 21321:tid 139751569631360] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:34:45.951915 2023] [unixd:alert] [pid 21322:tid 139751569631360] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:34:45.952744 2023] [unixd:alert] [pid 21323:tid 139751569631360] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:36:15.909373 2023] [mpm_event:notice] [pid 21320:tid 139751569631360] AH00492: caught SIGWINCH, shutting down gracefully
+[Wed Nov 15 11:46:00.749861 2023] [mpm_event:notice] [pid 21509:tid 140320297658496] AH00489: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Wed Nov 15 11:46:00.749985 2023] [core:notice] [pid 21509:tid 140320297658496] AH00094: Command line: '/usr/sbin/httpd -f conf/first.conf -D FOREGROUND'
+[Wed Nov 15 11:46:00.752016 2023] [unixd:alert] [pid 21511:tid 140320297658496] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:46:00.753943 2023] [unixd:alert] [pid 21512:tid 140320297658496] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:46:00.755270 2023] [unixd:alert] [pid 21510:tid 140320297658496] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:47:34.057848 2023] [mpm_event:notice] [pid 21509:tid 140320297658496] AH00492: caught SIGWINCH, shutting down gracefully
+[Wed Nov 15 11:50:50.905808 2023] [mpm_event:notice] [pid 1043:tid 140295124043904] AH00489: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Wed Nov 15 11:50:50.905906 2023] [core:notice] [pid 1043:tid 140295124043904] AH00094: Command line: '/usr/sbin/httpd -f conf/first.conf -D FOREGROUND'
+[Wed Nov 15 11:52:21.037356 2023] [mpm_event:notice] [pid 1043:tid 140295124043904] AH00492: caught SIGWINCH, shutting down gracefully
+[Wed Nov 15 11:53:57.224785 2023] [mpm_event:notice] [pid 1141:tid 140613063825536] AH00489: Apache/2.4.6 (CentOS) configured -- resuming normal operations
+[Wed Nov 15 11:53:57.224906 2023] [core:notice] [pid 1141:tid 140613063825536] AH00094: Command line: '/usr/sbin/httpd -f conf/first.conf -D FOREGROUND'
+[Wed Nov 15 11:53:57.226990 2023] [unixd:alert] [pid 1143:tid 140613063825536] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:53:57.228669 2023] [unixd:alert] [pid 1144:tid 140613063825536] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:53:57.229742 2023] [unixd:alert] [pid 1142:tid 140613063825536] AH02155: getpwuid: couldn't determine user name from uid 4294967295, you probably need to modify the User directive
+[Wed Nov 15 11:55:27.288055 2023] [mpm_event:notice] [pid 1141:tid 140613063825536] AH00492: caught SIGWINCH, shutting down gracefully

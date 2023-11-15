@@ -457,3 +457,7 @@ Nov 15 09:24:10 centos systemd[1]: Failed to start The Apache HTTP Server.
 Nov 15 09:24:37 centos systemd[1]: Failed to start The Apache HTTP Server.
 [vagrant@centos ~]$ 
 [vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo echo 'LoadModule unixd_module modules/mod_unixd.so' >> /etc/httpd/conf/first.conf
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ 
+[vagrant@centos ~]$ sudo echo 'LoadModule unixd_module modules/mod_unixd.so' >> /etc/httpd/conf/second.conf
