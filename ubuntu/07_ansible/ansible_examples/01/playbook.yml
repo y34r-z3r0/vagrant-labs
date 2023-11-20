@@ -13,7 +13,7 @@
         pkg: net-tools
         state: present
 
-  # runs only on host1
+#   # runs only on host1
 - hosts: host1
   become: true
   gather_facts: false
@@ -21,9 +21,14 @@
     - name: nginx
       ansible.builtin.apt:
         pkg: nginx
-        state: present
+        state: absent
 
   # runs only on host2
-  # - name: install Nginx
-  #   hosts: host2
-  #   tasks:
+- hosts: host2
+  become: true
+  gather_facts: false
+  tasks:
+    - name: docker
+      ansible.builtin.apt:
+        pkg: docker.io
+        state: absent
