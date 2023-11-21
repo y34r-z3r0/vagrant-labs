@@ -1,0 +1,6 @@
+pkgs:
+  - curl
+  - gnupg2
+  - ca-certificates
+  - lsb-release
+  - ubuntu-keyring
