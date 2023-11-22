@@ -1,0 +1,33 @@
+Vagrant.configure(2) do |config| 
+    config.vm.box = "bento/ubuntu-22.04" 
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.vm.provider "virtualbox" do |v| 
+        v.gui = false
+        v.cpus = "1"
+        v.memory = "1024"
+        v.check_guest_additions = false
+        v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    end
+  
+    config.vm.define "selinux" do |selinux|
+        selinux.vm.network "private_network", ip: "192.168.50.10",  virtualbox__intnet: "vagrant-net"
+        selinux.vm.hostname = "selinux"
+        # shell
+        selinux.vm.provision "shell", inline: <<-SHELL
+            # update cache
+            apt update
+            # install nginx
+            apt install nginx -y
+            # comfigure nginx
+
+            # stop and remove apparmor
+            systemctl stop apparmor
+            systemctl disable apparmor
+            # install selinux
+            # https://www.linode.com/docs/guides/how-to-install-selinux-on-ubuntu-22-04/
+            apt install policycoreutils selinux-basics selinux-utils -y
+            selinux-activate
+            reboot
+        SHELL
+    end
+end 
