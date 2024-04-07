@@ -1,22 +1,33 @@
-Vagrant.configure("2") do |config|
-    config.vm.network "public_network", ip: "192.168.1.10", bridge: "wlp2s0"
-    config.vm.hostname = "dc"
-    config.vm.box = "gusztavvargadr/windows-server"
-    config.vm.provider "virtualbox" do |v|
-        v.cpus = "2"
-        v.memory = "2048"
+Vagrant.configure(2) do |config|
+    config.vm.synced_folder ".", "/vagrant", disabled: true
+    config.vm.synced_folder "./shared", "/shared", disabled: true
+    config.vm.provider "virtualbox" do |vms|
+        # vms.gui = false
+        vms.check_guest_additions = false
+        vms.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
     end
-    # #script
-    # config.vm.provision "shell", path: "script.sh"
+    
+    config.vm.define "domain-controller" do |dc|
+        dc.vm.box = "gusztavvargadr/windows-server"
+        dc.vm.network "public_network", ip: "192.168.1.11", bridge: "wlp2s0"
+        dc.vm.hostname = "domain-controller"
+        dc.vm.provider "virtualbox" do |vm1|
+            vm1.memory = "2048"
+            vm1.cpus = "2"
+        end
 
-    # #shell
-    # config.vm.provision "shell", inline: <<-SHELL
-    # SHELL
+        # script
+        # victim.vm.provision "shell", path: "script.sh"
 
-    # #ansible
-    # config.vm.provision "ansible" do |ansible|
-    #     ansible.verbose = "vv"
-    #     ansible.playbook = "provision/playbook.yml"
-    #     ansible.become = "true"
-    # end
+        # shell
+        # victim.vm.provision "shell", inline: <<-SHELL
+        # SHELL
+
+        # ansible
+        # victim.vm.provision "ansible" do |ansible|
+        #     ansible.verbose = "vv"
+        #     ansible.playbook = "provision/playbook.yml"
+        #     ansible.become = "true"
+        # end
+    end
 end
