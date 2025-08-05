@@ -1,30 +1,54 @@
 Vagrant.configure(2) do |config|
-    config.vm.synced_folder ".", "/vagrant", disabled: true
-    config.vm.synced_folder "./shared", "/shared", disabled: true
-    config.vm.provider "virtualbox" do |vms|
-        # vms.gui = false
-        vms.check_guest_additions = false
-        vms.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
+    config.vm.box = "gusztavvargadr/windows-server"
+    config.vm.synced_folder "./shared", "/vagrant", disabled: true
+    config.vm.provider "virtualbox" do |vm|
+        vm.gui = true
+        vm.check_guest_additions = false
+        vm.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
     end
     
-    config.vm.define "domain-controller" do |dc|
-        dc.vm.box = "gusztavvargadr/windows-server"
-        dc.vm.network "public_network", ip: "192.168.1.11", bridge: "wlp2s0"
-        dc.vm.hostname = "domain-controller"
-        dc.vm.provider "virtualbox" do |vm1|
-            vm1.memory = "2048"
+    config.vm.define "host1" do |host1|
+        host1.vm.network "public_network", ip: "192.168.?.?", bridge: "wlp2s0"
+        # host1.vm.network "private_network", ip: "192.168.?.?",  virtualbox__intnet: "vagrant-net"
+        host1.vm.hostname = "host1"
+        host1.vm.provider "virtualbox" do |vm1|
             vm1.cpus = "2"
+            vm1.memory = "2048"
         end
 
         # script
-        # victim.vm.provision "shell", path: "script.sh"
+        # host1.vm.provision "shell", path: "script.sh"
 
         # shell
-        # victim.vm.provision "shell", inline: <<-SHELL
+        # host1.vm.provision "shell", inline: <<-SHELL
         # SHELL
 
         # ansible
-        # victim.vm.provision "ansible" do |ansible|
+        # host1.vm.provision "ansible" do |ansible|
+        #     ansible.verbose = "vv"
+        #     ansible.playbook = "provision/playbook.yml"
+        #     ansible.become = "true"
+        # end
+    end
+    
+    config.vm.define "host2" do |host2|
+        host2.vm.network "public_network", ip: "192.168.?.?", bridge: "wlp2s0"
+        # host2.vm.network "private_network", ip: "192.168.?.?",  virtualbox__intnet: "vagrant-net"
+        host2.vm.hostname = "host1"
+        host2.vm.provider "virtualbox" do |vm2|
+            vm2.cpus = "4"
+            vm2.memory = "4096"
+        end
+
+        # script
+        # host2.vm.provision "shell", path: "script.sh"
+
+        # shell
+        # host2.vm.provision "shell", inline: <<-SHELL
+        # SHELL
+
+        # ansible
+        # host2.vm.provision "ansible" do |ansible|
         #     ansible.verbose = "vv"
         #     ansible.playbook = "provision/playbook.yml"
         #     ansible.become = "true"
